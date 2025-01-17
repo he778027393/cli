@@ -5,6 +5,49 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
+exports[`test/lib/utils/error-message.js TAP 404 cleans sensitive info from package id > must match snapshot 1`] = `
+Object {
+  "detail": Array [
+    Array [
+      "404",
+      "",
+    ],
+    Array [
+      "404",
+      "",
+      "'http://evil:***@npmjs.org/not-found' is not in this registry.",
+    ],
+    Array [
+      "404",
+      "This package name is not valid, because",
+      "",
+    ],
+    Array [
+      "404",
+      " 1. name can only contain URL-friendly characters",
+    ],
+    Array [
+      "404",
+      "",
+    ],
+    Array [
+      "404",
+      "Note that you can also install from a",
+    ],
+    Array [
+      "404",
+      "tarball, folder, http url, or git url.",
+    ],
+  ],
+  "summary": Array [
+    Array [
+      "404",
+      "not found",
+    ],
+  ],
+}
+`
+
 exports[`test/lib/utils/error-message.js TAP 404 name with error > must match snapshot 1`] = `
 Object {
   "detail": Array [
@@ -15,7 +58,7 @@ Object {
     Array [
       "404",
       "",
-      "'node_modules' is not in the npm registry.",
+      "'node_modules' is not in this registry.",
     ],
     Array [
       "404",
@@ -28,10 +71,11 @@ Object {
     ],
     Array [
       "404",
-      String(
-        
-        Note that you can also install from a
-      ),
+      "",
+    ],
+    Array [
+      "404",
+      "Note that you can also install from a",
     ],
     Array [
       "404",
@@ -57,7 +101,7 @@ Object {
     Array [
       "404",
       "",
-      "'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' is not in the npm registry.",
+      "'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' is not in this registry.",
     ],
     Array [
       "404",
@@ -70,10 +114,11 @@ Object {
     ],
     Array [
       "404",
-      String(
-        
-        Note that you can also install from a
-      ),
+      "",
+    ],
+    Array [
+      "404",
+      "Note that you can also install from a",
     ],
     Array [
       "404",
@@ -111,18 +156,15 @@ Object {
     Array [
       "404",
       "",
-      "'yolo' is not in the npm registry.",
+      "'yolo' is not in this registry.",
     ],
     Array [
       "404",
-      "You should bug the author to publish it (or use the name yourself!)",
+      "",
     ],
     Array [
       "404",
-      String(
-        
-        Note that you can also install from a
-      ),
+      "Note that you can also install from a",
     ],
     Array [
       "404",
@@ -138,7 +180,41 @@ Object {
 }
 `
 
-exports[`test/lib/utils/error-message.js TAP bad engine with config loaded > must match snapshot 1`] = `
+exports[`test/lib/utils/error-message.js TAP args are cleaned > must match snapshot 1`] = `
+Object {
+  "detail": Array [
+    Array [
+      "signal",
+      "SIGYOLO",
+    ],
+    Array [
+      "command",
+      "some command",
+      "a",
+      "r",
+      "g",
+      "s",
+      "https://evil:***@npmjs.org",
+    ],
+    Array [
+      "",
+      "stdout",
+    ],
+    Array [
+      "",
+      "stderr",
+    ],
+  ],
+  "summary": Array [
+    Array [
+      "",
+      "cmd err",
+    ],
+  ],
+}
+`
+
+exports[`test/lib/utils/error-message.js TAP bad engine without config loaded > must match snapshot 1`] = `
 Object {
   "detail": Array [
     Array [
@@ -146,7 +222,7 @@ Object {
       String(
         Not compatible with your version of node/npm: some@package
         Required: undefined
-        Actual:   {"npm":"123.69.420-npm","node":"99.99.99"}
+        Actual:   {"npm":"123.456.789-npm","node":"123.456.789-node"}
       ),
     ],
   ],
@@ -169,17 +245,37 @@ Object {
     Array [
       "notsup",
       String(
-        Valid OS:    !yours,mine
-        Valid Arch:  x420,x69
-        Actual OS:   posix
-        Actual Arch: x64
+        Valid os:   !yours,mine
+        Actual os:  posix
+        Valid cpu:  x867,x5309
+        Actual cpu: x64
       ),
     ],
   ],
   "summary": Array [
     Array [
       "notsup",
-      "Unsupported platform for lodash@1.0.0: wanted {\\"os\\":\\"!yours,mine\\",\\"arch\\":\\"x420,x69\\"} (current: {\\"os\\":\\"posix\\",\\"arch\\":\\"x64\\"})",
+      "Unsupported platform for lodash@1.0.0: wanted {/"os/":/"!yours,mine/",/"cpu/":/"x867,x5309/"} (current: {/"os/":/"posix/",/"cpu/":/"x64/"})",
+    ],
+  ],
+}
+`
+
+exports[`test/lib/utils/error-message.js TAP bad platform omits keys with no required value > must match snapshot 1`] = `
+Object {
+  "detail": Array [
+    Array [
+      "notsup",
+      String(
+        Valid os:  !yours,mine
+        Actual os: posix
+      ),
+    ],
+  ],
+  "summary": Array [
+    Array [
+      "notsup",
+      "Unsupported platform for lodash@1.0.0: wanted {/"os/":/"!yours,mine/"} (current: {/"os/":/"posix/"})",
     ],
   ],
 }
@@ -191,17 +287,17 @@ Object {
     Array [
       "notsup",
       String(
-        Valid OS:    !yours
-        Valid Arch:  x420
-        Actual OS:   posix
-        Actual Arch: x64
+        Valid os:   !yours
+        Actual os:  posix
+        Valid cpu:  x420
+        Actual cpu: x64
       ),
     ],
   ],
   "summary": Array [
     Array [
       "notsup",
-      "Unsupported platform for lodash@1.0.0: wanted {\\"os\\":\\"!yours\\",\\"arch\\":\\"x420\\"} (current: {\\"os\\":\\"posix\\",\\"arch\\":\\"x64\\"})",
+      "Unsupported platform for lodash@1.0.0: wanted {/"os/":/"!yours/",/"cpu/":/"x420/"} (current: {/"os/":/"posix/",/"cpu/":/"x64/"})",
     ],
   ],
 }
@@ -318,7 +414,7 @@ Object {
       "",
       Error: whoopsie {
         "code": "EACCES",
-        "dest": "/some/cache/dir/dest",
+        "dest": "{CWD}/cache/dest",
         "path": "/not/cache/dir/path",
       },
     ],
@@ -352,7 +448,7 @@ Object {
       Error: whoopsie {
         "code": "EACCES",
         "dest": "/not/cache/dir/dest",
-        "path": "/some/cache/dir/path",
+        "path": "{CWD}/cache/path",
       },
     ],
   ],
@@ -384,8 +480,8 @@ Object {
       "",
       Error: whoopsie {
         "code": "EACCES",
-        "dest": "/some/cache/dir/dest",
-        "path": "/some/cache/dir/path",
+        "dest": "{CWD}/cache/dest",
+        "path": "{CWD}/cache/path",
       },
     ],
   ],
@@ -426,7 +522,12 @@ Object {
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":false,"loaded":true,"cachePath":false,"cacheDest":false} > must match snapshot 2`] = `
-Array []
+Array [
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+]
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":false,"loaded":true,"cachePath":false,"cacheDest":true} > must match snapshot 1`] = `
@@ -441,7 +542,7 @@ Object {
         previous versions of npm which has since been addressed.
         
         To permanently fix this problem, please run:
-          sudo chown -R 69:420 "/some/cache/dir"
+          sudo chown -R 867:5309 "{CWD}/cache"
       ),
     ],
   ],
@@ -450,9 +551,11 @@ Object {
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":false,"loaded":true,"cachePath":false,"cacheDest":true} > must match snapshot 2`] = `
 Array [
-  Array [
-    "dummy stack trace",
-  ],
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+  "dummy stack trace",
 ]
 `
 
@@ -468,7 +571,7 @@ Object {
         previous versions of npm which has since been addressed.
         
         To permanently fix this problem, please run:
-          sudo chown -R 69:420 "/some/cache/dir"
+          sudo chown -R 867:5309 "{CWD}/cache"
       ),
     ],
   ],
@@ -477,9 +580,11 @@ Object {
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":false,"loaded":true,"cachePath":true,"cacheDest":false} > must match snapshot 2`] = `
 Array [
-  Array [
-    "dummy stack trace",
-  ],
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+  "dummy stack trace",
 ]
 `
 
@@ -495,7 +600,7 @@ Object {
         previous versions of npm which has since been addressed.
         
         To permanently fix this problem, please run:
-          sudo chown -R 69:420 "/some/cache/dir"
+          sudo chown -R 867:5309 "{CWD}/cache"
       ),
     ],
   ],
@@ -504,9 +609,11 @@ Object {
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":false,"loaded":true,"cachePath":true,"cacheDest":true} > must match snapshot 2`] = `
 Array [
-  Array [
-    "dummy stack trace",
-  ],
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+  "dummy stack trace",
 ]
 `
 
@@ -566,7 +673,7 @@ Object {
       "",
       Error: whoopsie {
         "code": "EACCES",
-        "dest": "/some/cache/dir/dest",
+        "dest": "{CWD}/cache/dest",
         "path": "/not/cache/dir/path",
       },
     ],
@@ -601,7 +708,7 @@ Object {
       Error: whoopsie {
         "code": "EACCES",
         "dest": "/not/cache/dir/dest",
-        "path": "/some/cache/dir/path",
+        "path": "{CWD}/cache/path",
       },
     ],
   ],
@@ -634,8 +741,8 @@ Object {
       "",
       Error: whoopsie {
         "code": "EACCES",
-        "dest": "/some/cache/dir/dest",
-        "path": "/some/cache/dir/path",
+        "dest": "{CWD}/cache/dest",
+        "path": "{CWD}/cache/path",
       },
     ],
   ],
@@ -677,7 +784,12 @@ Object {
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":false,"cacheDest":false} > must match snapshot 2`] = `
-Array []
+Array [
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+]
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":false,"cacheDest":true} > must match snapshot 1`] = `
@@ -702,7 +814,7 @@ Object {
       "",
       Error: whoopsie {
         "code": "EACCES",
-        "dest": "/some/cache/dir/dest",
+        "dest": "{CWD}/cache/dest",
         "path": "/not/cache/dir/path",
       },
     ],
@@ -711,7 +823,12 @@ Object {
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":false,"cacheDest":true} > must match snapshot 2`] = `
-Array []
+Array [
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+]
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":true,"cacheDest":false} > must match snapshot 1`] = `
@@ -737,7 +854,7 @@ Object {
       Error: whoopsie {
         "code": "EACCES",
         "dest": "/not/cache/dir/dest",
-        "path": "/some/cache/dir/path",
+        "path": "{CWD}/cache/path",
       },
     ],
   ],
@@ -745,7 +862,12 @@ Object {
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":true,"cacheDest":false} > must match snapshot 2`] = `
-Array []
+Array [
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+]
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":true,"cacheDest":true} > must match snapshot 1`] = `
@@ -770,8 +892,8 @@ Object {
       "",
       Error: whoopsie {
         "code": "EACCES",
-        "dest": "/some/cache/dir/dest",
-        "path": "/some/cache/dir/path",
+        "dest": "{CWD}/cache/dest",
+        "path": "{CWD}/cache/path",
       },
     ],
   ],
@@ -779,7 +901,12 @@ Object {
 `
 
 exports[`test/lib/utils/error-message.js TAP eacces/eperm {"windows":true,"loaded":true,"cachePath":true,"cacheDest":true} > must match snapshot 2`] = `
-Array []
+Array [
+  "title npm",
+  "argv /"--fetch-retries/" /"0/" /"--cache/" /"{CWD}/cache/" /"--loglevel/" /"silly/" /"--color/" /"false/"",
+  "logfile logs-max:10 dir:{CWD}/cache/_logs/{DATE}-",
+  "logfile {CWD}/cache/_logs/{DATE}-debug-0.log",
+]
 `
 
 exports[`test/lib/utils/error-message.js TAP enoent without a file > must match snapshot 1`] = `
@@ -787,7 +914,7 @@ Object {
   "detail": Array [
     Array [
       "enoent",
-      "This is related to npm not being able to find a file.\\n",
+      "This is related to npm not being able to find a file./n",
     ],
   ],
   "summary": Array [
@@ -898,11 +1025,11 @@ Object {
         authentication token or enable two-factor authentication then
         that means you likely typed your password in incorrectly.
         Please try again, or recover your password at:
-            https://www.npmjs.com/forgot
+          https://www.npmjs.com/forgot
         
         If you were doing some other operation then your saved credentials are
         probably out of date. To correct this please try logging in again with:
-            npm login
+          npm login
       ),
     ],
   ],
@@ -921,8 +1048,8 @@ Object {
     Array [
       "",
       String(
-        To correct this please trying logging in again with:
-            npm login
+        To correct this please try logging in again with:
+          npm login
       ),
     ],
   ],
@@ -969,6 +1096,12 @@ Object {
     Array [
       "",
       "explanation",
+    ],
+  ],
+  "files": Array [
+    Array [
+      "eresolve-report.txt",
+      "report",
     ],
   ],
   "summary": Array [
@@ -1069,7 +1202,7 @@ Object {
       String(
         Not compatible with your version of node/npm: some@package
         Required: undefined
-        Actual:   {"npm":"123.69.420-npm","node":"123.69.420-node"}
+        Actual:   {"npm":"123.456.789-npm","node":"123.456.789-node"}
       ),
     ],
   ],
@@ -1154,7 +1287,7 @@ Object {
       "typeerror",
       String(
         This is an error with npm itself. Please report this error at:
-            https://github.com/npm/cli/issues
+          https://github.com/npm/cli/issues
       ),
     ],
   ],
@@ -1174,7 +1307,7 @@ Object {
       "typeerror",
       String(
         This is an error with npm itself. Please report this error at:
-            https://github.com/npm/cli/issues
+          https://github.com/npm/cli/issues
       ),
     ],
   ],
@@ -1194,7 +1327,7 @@ Object {
       "typeerror",
       String(
         This is an error with npm itself. Please report this error at:
-            https://github.com/npm/cli/issues
+          https://github.com/npm/cli/issues
       ),
     ],
   ],
@@ -1235,7 +1368,7 @@ Object {
       "typeerror",
       String(
         This is an error with npm itself. Please report this error at:
-            https://github.com/npm/cli/issues
+          https://github.com/npm/cli/issues
       ),
     ],
   ],
@@ -1283,6 +1416,29 @@ Object {
   "summary": Array [
     Array [
       "403",
+      "foo",
+    ],
+  ],
+}
+`
+
+exports[`test/lib/utils/error-message.js TAP just simple messages > must match snapshot 23`] = `
+Object {
+  "detail": Array [
+    Array [
+      "network",
+      String(
+        This is a problem related to network connectivity.
+        In most cases you are behind a proxy or have bad network settings.
+        
+        If you are behind a proxy, please make sure that the
+        'proxy' config is set properly.  See: 'npm help config'
+      ),
+    ],
+  ],
+  "summary": Array [
+    Array [
+      "network",
       "foo",
     ],
   ],
@@ -1353,7 +1509,7 @@ Object {
     ],
     Array [
       "publish fail",
-      "    npm help version",
+      "  npm help version",
     ],
   ],
   "summary": Array [
@@ -1383,7 +1539,7 @@ Object {
     ],
     Array [
       "git",
-      "    /some/path",
+      "  /some/path",
     ],
   ],
 }
@@ -1514,9 +1670,7 @@ Object {
       String(
         Merge conflict detected in your package.json.
         
-        Please resolve the package.json conflict and retry the command:
-        
-        $ arg v
+        Please resolve the package.json conflict and retry.
       ),
     ],
   ],
